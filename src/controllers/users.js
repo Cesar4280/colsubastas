@@ -1,15 +1,14 @@
 const { User } = require("../models");
 const { response } = require("../helpers");
 
-exports.getUser = async (req, res) => {
+exports.getUser = async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id);
-        console.log(user);
+        const { id } = req.params;
+        const user = await User.findById(id);
         if (user === null) response.notFound(res, "Usuario no encontrado");
         response.success(res, "Usuario encontrado", user);
     } catch (error) {
-        console.log(error);
-        response.internalError(res);
+        next(error);
     }
 };
 
