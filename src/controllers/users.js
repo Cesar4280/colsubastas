@@ -38,6 +38,10 @@ exports.addUser = async (req, res) => {
             }
         });
         user.password = await user.encryptPassword(user.password); 
+        let exist = await User.findOne({ username: user.username })
+        if (exist !== null) return response.conflict(res, "Nombre de usuario ya registrado")
+        exist = await User.findOne({ "document.number": user.document.number } )
+        if (exist !== null) return response.conflict(res, "Número de documento ya registrado")
         await user.save();
         response.created(res, "Usuario agregado al sistema", user);
     } catch (error) {
