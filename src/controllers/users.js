@@ -35,7 +35,8 @@ exports.addUser = async (req, res) => {
                 _type:      document._type,
                 number:     document.number,
                 issue_date: new Date(issue_date)
-            }
+            },
+            active: true
         });
         user.password = await user.encryptPassword(user.password); 
         let exist = await User.findOne({ username: user.username })

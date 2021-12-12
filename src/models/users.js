@@ -11,9 +11,10 @@ const UserSchema = new Schema({
         number:     { type: String, required: true },
         issue_date: { type: Date,   required: true }
     },
+    active:    { type: Boolean, default: true },
     birthdate: { type: Date, required: true }
 }, {
-    timestamps: true, 
+    timestamps: true,
     versionKey: false
 });
 
