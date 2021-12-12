@@ -3,8 +3,7 @@ const { response } = require("../helpers");
 
 exports.getUser = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const user = await User.findById(id);
+        const user = await User.findById(req.params.id);
         if (user === null) response.notFound(res, "Usuario no encontrado");
         response.success(res, "Usuario encontrado", user);
     } catch (error) {
