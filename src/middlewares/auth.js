@@ -1,4 +1,3 @@
-const { userModel } = require("../models");
 const { jwt, string, response } = require("../helpers");
 
 exports.checkAuth = (req, res, next) => {

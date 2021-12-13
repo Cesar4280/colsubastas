@@ -1,71 +1,39 @@
 const { getISOFormat } = require("./datetime");
 
+const httpResponse = (code = 200, status = "Ok", message = "success", body) => {
+    const response = { code, status, message, responseTime: getISOFormat() };
+    if (Boolean(body)) response.data = body;
+    return response;
+}
+
 exports.success = (response, message, body) => {
-    response.json({
-        code: 200,
-        status: "Ok",
-        data: body,
-        message,
-        responseTime: getISOFormat()
-    });
+    response.json(httpResponse(200, "Ok", message, body));
 };
 
 exports.created = (response, message, body) => {
-    const JSON = { code: 201, status: "Created", message, responseTime: getISOFormat() };
-    if (body !== undefined) Object.assign(JSON, { data: body });
-    response.status(201).json(JSON);
+    response.status(201).json(httpResponse(201, "Created", message, body));
 };
 
 exports.internalError = (response) => {
-    response.status(500).json({
-        code: 500,
-        status: "Internal Server Error",
-        message: "Servicio inactivo por el momento",
-        responseTime: getISOFormat()
-    });
+    response.status(500).json(httpResponse(500, "Internal Server Error", "Servicio inactivo por el momento"));
 };
 
 exports.notFound = (response, message) => {
-    response.status(404).json({
-        code: 404,
-        status: "Not Found",
-        message,
-        responseTime: getISOFormat()
-    });
+    response.status(404).json(httpResponse(404, "Not Found", message));
 };
 
 exports.conflict = (response, message) => {
-    response.status(409).json({
-        code: 409,
-        status: "Conflict",
-        message,
-        responseTime: getISOFormat()
-    });
+    response.status(409).json(httpResponse(409, "Conflict", message));
 };
 
 exports.unauthorized = (response, message) => {
-    response.status(401).json({
-        code: 401,
-        status: "Unauthorized",
-        message,
-        responseTime: getISOFormat()
-    });
+    response.status(401).json(httpResponse(401, "Unauthorized", message));
 };
 
 exports.forbidden = (response, message) => {
-    response.status(403).json({
-        code: 403,
-        status: "Forbidden",
-        message,
-        responseTime: getISOFormat()
-    });
+    response.status(403).json(httpResponse(403, "Forbidden", message));
 };
 
 exports.badRequest = (response, message) => {
-    response.status(400).json({
-        code: 400,
-        status: "Bad Request",
-        message,
-        responseTime: getISOFormat()
-    });
+    response.status(400).json(httpResponse(400, "Bad Request", message));
 };
