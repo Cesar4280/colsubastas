@@ -26,4 +26,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api", routes);
 
 // starting the server
-app.listen(app.get("port"), app.get("host"), () => console.log(`Server in host ${app.get("host")} listening on port ${app.get("port")}`));
+app.listen(app.get("port"), app.get("host"), () => console.log(`Server running on ${app.get("host")}:${app.get("port")} in ${app.get("env")} mode =)`));
