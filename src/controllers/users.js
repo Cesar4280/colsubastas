@@ -47,7 +47,10 @@ exports.addUser = async (req, res) => {
         user.password = await user.encryptPassword(user.password);
         let exist = await User.findOne({ username: user.username })
         if (exist !== null) return httpResponse(res, ...data);
-        data[1] = data[1].replace("Nombre de usuario", "Número de documento");
+        data[1] = data[1].replace("Nombre de usuario", "Correo electronico");
+        exist = await User.findOne({ email: user.email });
+        if (exist !== null) return httpResponse(res, ...data);
+        data[1] = data[1].replace("Correo electronico", "Número de documento");
         exist = await User.findOne({ "document.number": user.document.number });
         if (exist !== null) return httpResponse(res, ...data);
         await user.save();
