@@ -2,17 +2,17 @@ const { model, Schema } = require("mongoose");
 const { hash, compare, genSalt } = require("bcryptjs");
 
 const UserSchema = new Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    name:     { type: String, required: true },
+    email:    { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     document: {
-        _type: { type: String, required: true },
-        number: { type: String, required: true, unique: true },
+        _type:      { type: String, required: true },
+        number:     { type: String, required: true, unique: true },
         issue_date: { type: Date, required: true }
     },
     birthdate: { type: Date, required: true },
-    active: { type: Boolean, default: true }
+    active:    { type: Boolean, default: true }
 }, {
     timestamps: true,
     versionKey: false
