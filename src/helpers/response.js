@@ -9,7 +9,7 @@ const status = new Map([
 
 const jsonObject = (code, message, data) => {
     const json = { code, status: status.get(code), message, responseTime: getISOFormat() };
-    return Boolean(data) ? Object.assign(json, { data }) : json;
+    return data === undefined ? json : Object.assign(json, { data });
 };
 
 module.exports = function (response, code, message, body) {

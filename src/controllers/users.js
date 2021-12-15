@@ -2,40 +2,39 @@ const { User } = require("../models");
 const { httpResponse } = require("../helpers");
 const { isValidObjectId } = require("mongoose");
 
-exports.getUser = async (req, res) => {
+exports.getUser = async (request, response) => {
     try {
-        const id = req.params.id;
-        if (!isValidObjectId(id)) return httpResponse(res, 400, "Id enviado no cumple la PSI");
+        const { id } = request.params;
+        if (!isValidObjectId(id)) return httpResponse(response, 400, "Id enviado no cumple la PSI");
         const user = await User.findById(id);
         return user === null ?
-            httpResponse(res, 404, "Usuario no encontrado") :
-            httpResponse(res, 200, "Usuario encontrado", user);
-    } catch (err) {
-        console.log(err);
-        httpResponse(res, 500, "Servicio inactivo por el momento");
+            httpResponse(response, 404, "Usuario no encontrado") :
+            httpResponse(response, 200, "Usuario encontrado", user);
+    } catch (error) {
+        console.log(error);
+        httpResponse(response, 500, "Servicio inactivo en el momento");
     }
 };
 
-exports.getUsers = async (req, res) => {
+exports.getUsers = async (request, response) => {
     try {
         const users = await User.find();
-        httpResponse(res, 200, "Listado de usuarios", users);
-    } catch (err) {
-        console.log(err);
-        httpResponse(res, 500, "Algo ha ido mal en el servidor");
+        httpResponse(response, 200, "Listado de usuarios", users);
+    } catch (error) {
+        console.log(error);
+        httpResponse(response, 500, "Algo ha ido mal en el servidor");
     }
 };
 
-exports.addUser = async (req, res) => {
+exports.addUser = async (request, response) => {
     try {
-        const data = [409, "Nombre de usuario ya registrado"];
-        const { document, birthdate } = req.body;
+        const { document, birthdate } = request.body;
         const { issue_date } = document;
         const user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            username: req.body.username,
-            password: req.body.password,
+            name: request.body.name,
+            email: request.body.email,
+            username: request.body.username,
+            password: request.body.password,
             birthdate: new Date(birthdate),
             document: {
                 _type: document._type,
@@ -46,17 +45,18 @@ exports.addUser = async (req, res) => {
         });
         user.password = await user.encryptPassword(user.password);
         let exist = await User.findOne({ username: user.username })
-        if (exist !== null) return httpResponse(res, ...data);
-        data[1] = data[1].replace("Nombre de usuario", "Correo electronico");
+        const content = [response, 409, "Nombre de usuario ya registrado"];
+        if (exist !== null) return httpResponse(...content);
+        content[2] = "Correo electrónico ya registrado";
         exist = await User.findOne({ email: user.email });
-        if (exist !== null) return httpResponse(res, ...data);
-        data[1] = data[1].replace("Correo electronico", "Número de documento");
+        if (exist !== null) return httpResponse(...content);
+        content[2] = "Número de documento ya registrado";
         exist = await User.findOne({ "document.number": user.document.number });
-        if (exist !== null) return httpResponse(res, ...data);
+        if (exist !== null) return httpResponse(...content);
         await user.save();
-        httpResponse(res, 201, "Usuario agregado al sistema", user);
-    } catch (err) {
-        console.log(err);
-        httpResponse(res, 500, "Ocurrio un problema en el servidor");
+        httpResponse(response, 201, "Usuario agregado al sistema", user);
+    } catch (error) {
+        console.log(error);
+        httpResponse(response, 500, "Ocurrio un problema en el servidor");
     }
 };
