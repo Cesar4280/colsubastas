@@ -43,7 +43,7 @@ exports.addUser = async (request, response) => {
             },
             active: true
         });
-        const message = await User.checkMessage(user);
+        const message = await User.checkUser(user);
         if (message !== "") return httpResponse(response, 409, message);
         user.password = await user.encryptPassword(user.password);
         await user.save();

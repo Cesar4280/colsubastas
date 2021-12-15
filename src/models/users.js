@@ -27,7 +27,7 @@ UserSchema.methods.matchPassword = async function (password) {
     return await compare(password, this.password);
 };
 
-UserSchema.statics.checkMessage = async function (user) {
+UserSchema.statics.checkUser = async function (user) {
     try {
         let found = await this.findOne({ username: user.username });
         if (found !== null) return "Nombre de usuario ya registrado";
