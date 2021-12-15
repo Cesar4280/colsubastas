@@ -1,4 +1,3 @@
-const { join } = require("path");
 const { model, Schema } = require("mongoose");
 
 const ProductSchema = new Schema({
