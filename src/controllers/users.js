@@ -43,16 +43,9 @@ exports.addUser = async (request, response) => {
             },
             active: true
         });
+        const message = await User.checkMessage(user);
+        if (message !== "") return httpResponse(response, 409, message);
         user.password = await user.encryptPassword(user.password);
-        let exist = await User.findOne({ username: user.username })
-        const content = [response, 409, "Nombre de usuario ya registrado"];
-        if (exist !== null) return httpResponse(...content);
-        content[2] = "Correo electrónico ya registrado";
-        exist = await User.findOne({ email: user.email });
-        if (exist !== null) return httpResponse(...content);
-        content[2] = "Número de documento ya registrado";
-        exist = await User.findOne({ "document.number": user.document.number });
-        if (exist !== null) return httpResponse(...content);
         await user.save();
         httpResponse(response, 201, "Usuario agregado al sistema", user);
     } catch (error) {
