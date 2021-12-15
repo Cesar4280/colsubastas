@@ -9,10 +9,10 @@ const UserSchema = new Schema({
     document: {
         _type:      { type: String, required: true },
         number:     { type: String, required: true, unique: true },
-        issue_date: { type: Date, required: true }
+        issue_date: { type: Date,   required: true }
     },
-    birthdate: { type: Date, required: true },
-    active:    { type: Boolean, default: true }
+    birthdate: { type: Date,    required: true },
+    active:    { type: Boolean,  default: true }
 }, {
     timestamps: true,
     versionKey: false
