@@ -15,4 +15,4 @@ ProductSchema.methods = function generateImageUrl() {
     this.image_url = this.name.concat(Date.now.toString());
 };
 
-module.exports = model("Product", ProductSchema);
+module.exports = model("Producto", ProductSchema);

@@ -11,8 +11,9 @@ const UserSchema = new Schema({
         number:     { type: String, required: true, unique: true },
         issue_date: { type: Date,   required: true }
     },
-    birthdate: { type: Date,    required: true },
-    active:    { type: Boolean,  default: true }
+    role:      { type: String,      enum:  ["user", "admin"]  },
+    birthdate: { type: Date,    required:  true   },
+    active:    { type: Boolean,  default:  true   },
 }, {
     timestamps: true,
     versionKey: false

@@ -28,19 +28,20 @@ exports.getUsers = async (request, response) => {
 
 exports.addUser = async (request, response) => {
     try {
-        const { document, birthdate } = request.body;
+        const { document, birthdate, role } = request.body;
         const { issue_date } = document;
         const user = new User({
-            name: request.body.name,
-            email: request.body.email,
-            username: request.body.username,
-            password: request.body.password,
-            birthdate: new Date(birthdate),
+            name:       request.body.name,
+            email:      request.body.email,
+            username:   request.body.username,
+            password:   request.body.password,
+            birthdate:  new Date(birthdate),
             document: {
-                _type: document._type,
-                number: document.number,
+                _type:      document._type,
+                number:     document.number,
                 issue_date: new Date(issue_date)
             },
+            role:   role ?? "user",
             active: true
         });
         const message = await User.checkUser(user);
@@ -52,4 +53,14 @@ exports.addUser = async (request, response) => {
         console.log(error);
         httpResponse(response, 500, "Ocurrio un problema en el servidor");
     }
+};
+
+exports.signIn = async (request, response) => {
+    const { username, password } = request.body;
+    const user = await User.findOne({ username });
+    const message = "Usuario o contraseña incorrectas";
+    if (user === null) return httpResponse(response, 404, message);
+    const valid = await user.matchPassword(password);
+    if (valid) return httpResponse(response, 200, "Estas autenticado", user);
+    httpResponse(response, 404, message);
 };
