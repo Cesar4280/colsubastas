@@ -24,8 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(resolve("public")))
 
-console.log(app.get("static") + " here.")
-
 // route implementations
 app.use("/api", routes);
 
