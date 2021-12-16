@@ -76,8 +76,7 @@ exports.updateUser = async (request, response) => {
         if (!isValidObjectId(id)) return httpResponse(response, 400, "Id enviado no cumple la PSI");
         const user = await User.findOne({ _id: id, active: true });
         if (user === null) return httpResponse(response, 404, "Usuario no encontrado");
-        const { name, email, username, password, birthdate } = request.body;
-        let document = request.body.document ?? {};
+        const { name, email, username, password, birthdate, document = {} } = request.body;
         const { _type, number, issue_date } = document;
         if(Boolean(name))       user.name = name;
         if(Boolean(email))      user.email = email;
