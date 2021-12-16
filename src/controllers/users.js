@@ -26,7 +26,7 @@ exports.getUsers = async (request, response) => {
     }
 };
 
-exports.addUser = async (request, response) => {
+exports.signUp = async (request, response) => {
     try {
         const { document, birthdate, role } = request.body;
         const { issue_date } = document;
@@ -94,7 +94,7 @@ exports.updateUser = async (request, response) => {
     }
 };
 
-exports.deleteUser = async (request, response) => {
+exports.removeUser = async (request, response) => {
     try {
         const { id } = request.params;
         if (!isValidObjectId(id)) return httpResponse(response, 400, "Id enviado no cumple la PSI");
