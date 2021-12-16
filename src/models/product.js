@@ -6,7 +6,7 @@ const ProductSchema = new Schema({
     image_url:   { type: String, required: true, unique: true },
     description: { type: String, required: true },
     active:      { type: Boolean, default: true }
-},{
+}, {
     timestamps: true, //TODO: add creation and update datetime
     versionKey: false //FIXME: remove mongo version key 
 });
