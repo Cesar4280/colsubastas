@@ -1,4 +1,5 @@
 const userRoutes = require("./users");
+const productRoutes = require("./products");
 
 /*
 const saleRoutes = require("./sales");
@@ -8,6 +9,7 @@ const dressRoutes = require("./dresses");
 const router = require("express").Router();
 
 router.use("/users", userRoutes);
+router.use("/products", productsRoutes);
 
 /*
 router.use("/sales", saleRoutes);
