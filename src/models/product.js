@@ -7,8 +7,8 @@ const ProductSchema = new Schema({
     description: { type: String, required: true },
     active:      { type: Boolean, default: true }
 }, {
-    timestamps: true, //TODO: add creation and update datetime
-    versionKey: false //FIXME: remove mongo version key 
+    timestamps: true, //NOTE: add creation and update datetime
+    versionKey: false //NOTE: remove mongo version key 
 });
 
 ProductSchema.methods = function generateImageUrl() {
