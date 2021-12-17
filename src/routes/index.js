@@ -9,7 +9,7 @@ const dressRoutes = require("./dresses");
 const router = require("express").Router();
 
 router.use("/users", userRoutes);
-router.use("/products", productsRoutes);
+router.use("/products", productRoutes);
 
 /*
 router.use("/sales", saleRoutes);
