@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     document: {
-        _type:      { type: String, required: true },
+        _type:      { type: String, required: true, enum:   ["Cedula de ciudadania", "Pasaporte", "Cedula de extranjeria"] },
         number:     { type: String, required: true, unique: true },
         issue_date: { type: Date,   required: true }
     },

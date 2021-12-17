@@ -1,6 +1,7 @@
 const { Product } = require("../models");
 const { httpResponse } = require("../helpers");
 const { isValidObjectId } = require("mongoose");
+const { generateRandom } = require("../helpers/datetime");
 
 exports.getProduct = async (request, response) => {
     try {
@@ -31,7 +32,7 @@ exports.addProduct = async (request, response) => {
         const product = new Product({
             name:        request.body.name,
             price:       request.body.price,
-            image_url:   Date.now.toString(),
+            image_url:   `${request.body.name}_${Date.now()}_${generateRandom(1, 100)}.PNG`,
             description: request.body.description
         });
         await product.save();
