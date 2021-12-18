@@ -14,12 +14,12 @@ const BidSchema = new Schema({
     versionKey: false
 });
 
-ProductSchema.methods = function getWinner() {
+BidSchema.methods = function getWinner() {
     const length = this.contestants.length;
     return this.contestants[length - 1];
 };
 
-ProductSchema.methods = async function cancelBidAndGetWinner() {
+BidSchema.methods = async function cancelBidAndGetWinner() {
     try {
         this.contestants.pop();
         await this.save();
