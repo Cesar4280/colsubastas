@@ -7,7 +7,8 @@ const BidSchema = new Schema({
         opening: { type: Date, required: true },
         cancel:  { type: Date, required: true },
         ending:  { type: Date, required: true },
-    }
+    },
+    active: { type: Boolean, default: true }
 }, {
     timestamps: true,
     versionKey: false
