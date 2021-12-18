@@ -32,7 +32,7 @@ exports.addProduct = async (request, response) => {
         const product = new Product({
             name:        request.body.name,
             price:       request.body.price,
-            image_url:   `${request.body.name}_${Date.now()}_${generateRandom(1, 100)}.PNG`,
+            image_url:  `${request.body.name}_${Date.now()}_${generateRandom(1, 100)}.PNG`,
             description: request.body.description
         });
         await product.save();

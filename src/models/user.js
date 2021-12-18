@@ -2,18 +2,18 @@ const { model, Schema } = require("mongoose");
 const { hash, compare, genSalt } = require("bcryptjs");
 
 const UserSchema = new Schema({
-    name:     { type: String, required: true },
-    email:    { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    document: {
+    name:           { type: String, required: true },
+    email:          { type: String, required: true, unique: true },
+    username:       { type: String, required: true, unique: true },
+    password:       { type: String, required: true },
+    document:       {
         _type:      { type: String, required: true, enum:   ["Cedula de ciudadania", "Pasaporte", "Cedula de extranjeria"] },
         number:     { type: String, required: true, unique: true },
         issue_date: { type: Date,   required: true }
     },
-    role:      { type: String,      enum:  ["user", "admin"]  },
-    birthdate: { type: Date,    required:  true   },
-    active:    { type: Boolean,  default:  true   },
+    role:           { type: String,      enum:  ["user", "admin"]  },
+    birthdate:      { type: Date,    required:  true   },
+    active:         { type: Boolean,  default:  true   },
 }, {
     timestamps: true,
     versionKey: false
