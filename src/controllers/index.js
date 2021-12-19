@@ -1,5 +1,5 @@
 const userController = require("./users");
-const saleController = require("./sales");
+// const bidController = require("./sales");
 const productController = require("./products");
 
-module.exports = { userController, productController };
+module.exports = { userController, /*bidController,*/ productController };
