@@ -1,10 +1,10 @@
+const bidRoutes = require("./bids");
 const userRoutes = require("./users");
 const productRoutes = require("./products");
-// const bidRoutes = require("./bids");
 
 const router = require("express").Router();
 
-// router.use("/bids", bidRoutes);
+router.use("/bids", bidRoutes);
 router.use("/users", userRoutes);
 router.use("/products", productRoutes);
 
