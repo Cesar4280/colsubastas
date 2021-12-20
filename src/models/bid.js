@@ -15,12 +15,17 @@ const BidSchema = new Schema({
     versionKey: false
 });
 
-BidSchema.methods = function getWinner() {
-    const length = this.contestants.length;
-    return this.contestants[length - 1];
+BidSchema.methods.getWinner = function () {
+    try {
+        const length = this.contestants.length;
+        if (length === 0)  return null;
+        return this.contestants[length - 1];
+    } catch (error) {
+        throw error;
+    }
 };
 
-BidSchema.methods = async function cancelBidAndGetWinner() {
+BidSchema.methods.cancelBidAndGetWinner = async function () {
     try {
         this.contestants.pop();
         await this.save();
